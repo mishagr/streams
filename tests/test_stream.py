@@ -466,3 +466,35 @@ class StreamTests(TestCase):
                                  range(20, 30))) + ['foo'])
         values = stream.values()
         self.assertListEqual(list(values), list(range(20, 30)) + ['foo'])
+
+    #   stream.to_dict()
+    def test_dict_is_created_correctly(self):
+        stream = Stream.range(3).tuplify()
+        self.assertDictEqual(stream.to_dict(), {0:0, 1:1, 2:2})
+
+    #   stream.to_set()
+    def test_set_is_created_correctly(self):
+        stream = Stream.range(3)
+        self.assertSetEqual(stream.to_set(), {0, 1, 2})
+
+    #   stream.to_list()
+    def test_list_is_created_correctly(self):
+        stream = Stream.range(3)
+        self.assertListEqual(stream.to_list(), [0, 1, 2])
+
+    #   stream.join()
+    def test_join_works_correctly(self):
+        stream = Stream([1, 2.0, "3", "4.0", None, {}])
+        self.assertEqual(stream.join(", "), "1, 2.0, 3, 4.0, None, {}")
+
+    #   stream.for_each()
+    def test_for_each(self):
+        class Apply:
+            def __init__(self):
+                self.total = 0
+            def apply(self, val):
+                self.total += val
+        stream = Stream.range(3)
+        apply = Apply()
+        stream.for_each(apply.apply)
+        self.assertEqual(apply.total, 0+1+2)

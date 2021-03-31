@@ -984,3 +984,43 @@ class Stream(Iterable, Sized):
         else:
             iterator = self.map(predicate, **concurrency_kwargs)
         return all(iterator)
+
+    def for_each(self, funct):
+        """
+        Applies funct on each element in stream
+        :param funct:
+        """
+        for item in self:
+            funct(item)
+
+    def join(self, separator):
+        """
+        Joins stream elements with specified separator
+        :param separator:
+        :return: joined string
+        >>> stream = Stream([1, 2.0, "3", "4.0", None, {}])
+        >>> stream.join(", ")
+        >>> "1, 2.0, 3, 4.0, None, {}"
+        """
+        return separator.join(self.strings())
+
+    def to_list(self):
+        """
+        Converts sream to list
+        :return:
+        """
+        return list(self)
+
+    def to_set(self):
+        """
+        Converts stream to set
+        :return:
+        """
+        return set(self)
+
+    def to_dict(self):
+        """
+        Converts stream of key-value tuples to dict
+        :return:
+        """
+        return dict(iter(self))
