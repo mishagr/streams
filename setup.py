@@ -13,7 +13,7 @@ from setuptools import setup, find_packages
 
 
 REQUIREMENTS = [
-    "six==1.6.1",
+    "six>=1.6.1",
     "repoze.lru==0.6"
 ]
 
