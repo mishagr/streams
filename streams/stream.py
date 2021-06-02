@@ -1024,3 +1024,17 @@ class Stream(Iterable, Sized):
         :return:
         """
         return dict(iter(self))
+
+    def enumerate(self):
+        """
+        Enumerates objects of stream into the tuples of (index, obj).
+
+        :return: new processed :py:class:`Stream` instance.
+
+        >>> stream = Stream(['A', 'B', 'C'])
+        >>> stream = stream.enumerate()
+        >>> list(stream)
+        ... [(0, 'A'), (1, 'B'), (2, 'C')]
+        """
+        return self.__class__(enumerate(self))
+

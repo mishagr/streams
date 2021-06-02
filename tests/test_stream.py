@@ -498,3 +498,10 @@ class StreamTests(TestCase):
         apply = Apply()
         stream.for_each(apply.apply)
         self.assertEqual(apply.total, 0+1+2)
+
+    # stream.enumerate()
+    def test_enumerate(self):
+        stream = Stream(['A', 'B', 'C'])
+        stream = stream.enumerate()
+        self.assertEqual(stream.to_list(), [(0, 'A'), (1, 'B'), (2, 'C')])
+
